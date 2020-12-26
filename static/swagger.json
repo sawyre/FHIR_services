@@ -1,0 +1,194 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "что-то с чем-то",
+        "version": "1.0.0",
+         "title": "FHIR API"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Patient Request",
+            "description": "Example API for requesting and return patient requests"
+        },
+        {
+            "name": "Schedule Request",
+            "description": "Example API for requesting and return patient requests"
+        }
+    ],
+    "paths": {
+        "/patient": {
+            "post": {
+                "tags": [
+                    "Patient Request"
+                ],
+                "summary": "Create a new patient",
+                "requestBody": {
+                    "description": "Patient Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/patientRequestPostBody"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Patient Request"
+                ],
+                "summary": "Returns patient",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/patientRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/schedule": {
+            "post": {
+                "tags": [
+                    "Schedule Request"
+                ],
+                "summary": "Create a new schedule",
+                "requestBody": {
+                    "description": "Patient Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/scheduleRequestPostBody"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Schedule Request"
+                ],
+                "summary": "Returns patient",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/scheduleRequest"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "id": {
+                "properties": {
+                    "uuid": {
+                        "type": "string"
+                    }
+                }
+            },
+            "patientRequestPostBody": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "family": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "birthDate": {
+                        "type": "date",
+                        "format": "YYYY-MM-DD"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "format": "+xxxxxxxxxxx"
+                    },
+                    "address": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "city": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "state": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "patientRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "scheduleRequestPostBody": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "scheduleRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            }
+        }
+    }
+}
