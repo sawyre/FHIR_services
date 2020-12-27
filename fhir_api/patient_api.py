@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
-from .sql_query_function import _get_resource_by_id, _get_resources_by_dict
+from .sql_query_converter import sql_query_by_dict, sql_query_by_id
 
 
 REQUEST_API = Blueprint('patient_api', __name__)
