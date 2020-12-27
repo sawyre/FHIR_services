@@ -174,9 +174,53 @@
             "scheduleRequestPostBody": {
                 "type": "object",
                 "properties": {
-                    "name": {
+                    "serviceCategoryCode": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
+                    "serviceCategory": {
                         "type": "string",
                         "format": "string"
+                    },
+                    "serviceTypeCode": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
+                    "serviceType": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "specialtyCode": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
+                    "specialty": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "Practitioner": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "PractitionerID": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
+                    "Location": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "LocationID": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
+                    "StartDate": {
+                        "type": "string",
+                        "format": "YYYY-MM-DDTHH:MM:SSZ"
+                    },
+                    "EndDate": {
+                        "type": "string",
+                        "format": "YYYY-MM-DDTHH:MM:SSZ"
                     }
                 }
             },

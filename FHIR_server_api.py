@@ -3,7 +3,8 @@ import os
 from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
-from fhir_api import request_api
+from fhir_api import patient_api
+from fhir_api import schedule_api
 
 
 APP = Flask(__name__)
@@ -23,6 +24,7 @@ APP.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 
 APP.register_blueprint(request_api.get_blueprint())
+APP.register_blueprint(schedule_api.get_blueprint())
 
 
 @APP.errorhandler(400)

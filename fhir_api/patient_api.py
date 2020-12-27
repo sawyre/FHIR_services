@@ -4,7 +4,7 @@ from flask import jsonify, abort, request, Blueprint
 import requests
 
 
-REQUEST_API = Blueprint('request_api', __name__)
+REQUEST_API = Blueprint('patient_api', __name__)
 SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
 
 def get_blueprint():
