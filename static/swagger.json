@@ -21,7 +21,7 @@
         }
     ],
     "paths": {
-        "/create_patient": {
+        "/patient": {
             "post": {
                 "tags": [
                     "Patient Request"
@@ -81,14 +81,14 @@
                 }
             }
         },
-        "/create_schedule": {
+        "/schedule": {
             "post": {
                 "tags": [
                     "Schedule Request"
                 ],
                 "summary": "Create a new schedule",
                 "requestBody": {
-                    "description": "Schedule Request Post Object",
+                    "description": "Patient Request Post Object",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -112,37 +112,18 @@
                         "description": "Failed. Bad post data."
                     }
                 }
-            }
-        },
-        "/create_slot": {
-            "post": {
+            },
+            "get": {
                 "tags": [
                     "Schedule Request"
                 ],
-                "summary": "Create a new slot",
-                "requestBody": {
-                    "description": "Slot Request Post Object",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/slotRequestPostBody"
-                            }
-                        }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ],
+                "summary": "Returns patient",
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/components/schemas/id"
+                            "$ref": "#/components/schemas/scheduleRequest"
                         }
-                    },
-                    "400": {
-                        "description": "Failed. Bad post data."
                     }
                 }
             }
@@ -253,55 +234,6 @@
                     "ID": {
                         "type": "number",
                         "format": "number"
-                    }
-                }
-            },
-            "slotRequestPostBody": {
-                "type": "object",
-                "properties": {
-                    "serviceCategoryCode": {
-                        "type": "integer",
-                        "format": "integer"
-                    },
-                    "serviceCategory": {
-                        "type": "string",
-                        "format": "string"
-                    },
-                    "serviceTypeCode": {
-                        "type": "integer",
-                        "format": "integer"
-                    },
-                    "serviceType": {
-                        "type": "string",
-                        "format": "string"
-                    },
-                    "specialtyCode": {
-                        "type": "integer",
-                        "format": "integer"
-                    },
-                    "specialty": {
-                        "type": "string",
-                        "format": "string"
-                    },
-                    "appointmentTypeCode": {
-                        "type": "string",
-                        "format": "string"
-                    },
-                    "appointmentType": {
-                        "type": "string",
-                        "format": "string"
-                    },
-                    "ScheduleID": {
-                        "type": "integer",
-                        "format": "integer"
-                    },
-                    "StartDate": {
-                        "type": "string",
-                        "format": "YYYY-MM-DDTHH:MM:SSZ"
-                    },
-                    "EndDate": {
-                        "type": "string",
-                        "format": "YYYY-MM-DDTHH:MM:SSZ"
                     }
                 }
             }
