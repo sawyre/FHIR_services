@@ -2,10 +2,13 @@ import uuid
 from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
+from .sql_query_converter import sql_query_by_dict, sql_query_by_id
 
 
 REQUEST_API = Blueprint('schedule_api', __name__)
-SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
+ # TODO: Вынести в глобальные и заменить на нужные
+CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
+SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
@@ -81,11 +84,15 @@ def create_schedule():
 def get_schedule():
     """
     Get a schedule request record
+    @param: doctor ID
+    @param: interval
     """
     if not request.get_json():
         abort(400)
+    print(data)
+    print(data['ID'])
     data = request.get_json(force=True)
     
-    ans = requests.post(SERVER, headers={'Content-type': 'application/json'}, json=data)
+    ans = requests.post(SEARCH_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=data)
     
     return data, 201

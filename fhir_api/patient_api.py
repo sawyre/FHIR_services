@@ -2,10 +2,13 @@ import uuid
 from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
+from .sql_query_converter import sql_query_by_dict, sql_query_by_id
 
 
 REQUEST_API = Blueprint('patient_api', __name__)
-SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
+ # TODO: Вынести в глобальные и заменить на нужные
+CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
+SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
@@ -52,19 +55,18 @@ def create_patient():
     address_list_dict[0]['state'] = data['state']
     patient_dict['address'] = address_list_dict
 
-    ans = requests.post(SERVER, headers={'Content-type': 'application/json'}, json=patient_dict)
+    ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=patient_dict)
     print(ans.json())
     return patient_dict, 201
 
-@REQUEST_API.route('/patient', methods=['GET'])
-def get_patient():
+@REQUEST_API.route('/patient/<string:_id>', methods=['GET'])
+def get_patient_by_id(_id):
     """
     Get a patient request record
     """
-    if not request.get_json():
-        abort(400)
-    data = request.get_json(force=True)
+    sql_search_query = sql_query_by_id('patient', _id)
+    query_dict = {'query': sql_search_query}
+    print(query_dict)
+    ans = requests.post(SEARCH_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=query_dict)
     
-    ans = requests.post(SERVER, headers={'Content-type': 'application/json'}, json=data)
-    
-    return data, 201
+    return query_dict, 201

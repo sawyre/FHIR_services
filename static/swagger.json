@@ -52,12 +52,25 @@
                         "description": "Failed. Bad post data."
                     }
                 }
-            },
+            }
+        },
+        "/patient/{id}": {
             "get": {
                 "tags": [
                     "Patient Request"
                 ],
-                "summary": "Returns patient",
+                "summary": "Returns patient with given ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Patient Request id",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -162,15 +175,6 @@
                     }
                 }
             },
-            "patientRequest": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "format": "string"
-                    }
-                }
-            },
             "scheduleRequestPostBody": {
                 "type": "object",
                 "properties": {
@@ -227,9 +231,9 @@
             "scheduleRequest": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "format": "string"
+                    "ID": {
+                        "type": "number",
+                        "format": "number"
                     }
                 }
             }

@@ -23,7 +23,7 @@ APP.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 ### end swagger specific ###
 
 
-APP.register_blueprint(request_api.get_blueprint())
+APP.register_blueprint(patient_api.get_blueprint())
 APP.register_blueprint(schedule_api.get_blueprint())
 
 
