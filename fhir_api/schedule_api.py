@@ -81,23 +81,6 @@ def create_schedule():
     print(ans.json())
     return schedule_dict, 201
 
-@REQUEST_API.route('/schedule', methods=['GET'])
-def get_schedule():
-    """
-    Get a schedule request record
-    @param: doctor ID
-    @param: interval
-    """
-    if not request.get_json():
-        abort(400)
-    print(data)
-    print(data['ID'])
-    data = request.get_json(force=True)
-    
-    ans = requests.post(SEARCH_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=data)
-    
-    return data, 201
-
 @REQUEST_API.route('/create_slot', methods=['POST'])
 def create_slot():
     """
@@ -196,12 +179,12 @@ def create_appointment():
 
     #TODO: создать референс на врача, получив из слота поле референса на расписание
 
-    ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
+    ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=appointment_dict)
     print(ans.json())
-    return slot_dict, 201
+    return appointment_dict, 201
 
 @REQUEST_API.route('/get_appointments', methods=['POST'])
-def get_appointment():
+def get_appointments():
     """
     Create a appointment request record
     @return: 201: a new_uuid as a flask/response object \
@@ -213,8 +196,9 @@ def get_appointment():
         abort(400)
     data = request.get_json()
 
-    appointments_dict = _get_resource_by_dict("appointments", )
+    search_dict = {"participant": [{"actor": {"reference": "Patient/7"}}]}
+    appointments_dict = _get_resources_by_dict("appointment", search_dict)
 
-    ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
-    print(ans.json())
-    return slot_dict, 201
+    #ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
+    print(appointments_dict)
+    return appointments_dict, 201

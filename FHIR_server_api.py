@@ -5,8 +5,10 @@ from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from fhir_api import patient_api
 from fhir_api import schedule_api
+from flask_ngrok import run_with_ngrok
 
 
+RUN_WITH_NGROK = True
 APP = Flask(__name__)
 
 ### swagger specific ###
@@ -22,10 +24,11 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 APP.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 ### end swagger specific ###
 
-
 APP.register_blueprint(patient_api.get_blueprint())
 APP.register_blueprint(schedule_api.get_blueprint())
 
+if RUN_WITH_NGROK:
+    run_with_ngrok(APP)
 
 @APP.errorhandler(400)
 def handle_400_error(_error):
@@ -61,9 +64,9 @@ if __name__ == '__main__':
 
     PORT = 5000
 
-    if ARGS.debug:
+    if not RUN_WITH_NGROK:
         print("Running in debug mode")
         CORS = CORS(APP)
         APP.run(host='0.0.0.0', port=PORT, debug=True)
     else:
-        APP.run(host='0.0.0.0', port=PORT, debug=False)
+        APP.run()

@@ -15,7 +15,7 @@ def get_blueprint():
     return REQUEST_API
 
 
-@REQUEST_API.route('/patient', methods=['POST'])
+@REQUEST_API.route('/create_patient', methods=['POST'])
 def create_patient():
     """
     Create a patient request record
@@ -30,6 +30,7 @@ def create_patient():
     
     patient_dict = {}
     patient_dict["resourceType"] = "Patient"
+    patient_dict["identifier"] = [{"value": data["policyNumber"]}]
 
     # Имена могут меняться или фамилии (при женитьбе), поэтому список
     names_list_dict = [{}]
@@ -45,7 +46,7 @@ def create_patient():
     # Список средств связи
     telecom_list_dict = [{}]
     telecom_list_dict[0]["system"] = "phone"
-    telecom_list_dict[0]["value"] = data['phone_number']
+    telecom_list_dict[0]["value"] = data['phoneNumber']
     patient_dict["telecom"] = telecom_list_dict
 
     # Список адресов
@@ -64,9 +65,6 @@ def get_patient_by_id(_id):
     """
     Get a patient request record
     """
-    sql_search_query = sql_query_by_id('patient', _id)
-    query_dict = {'query': sql_search_query}
-    print(query_dict)
-    ans = requests.post(SEARCH_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=query_dict)
+    ans = _get_resource_by_id('patient', _id)
     
-    return query_dict, 201
+    return ans.json(), 201

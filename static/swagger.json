@@ -146,6 +146,72 @@
                     }
                 }
             }
+        },
+        "/create_appointment": {
+            "post": {
+                "tags": [
+                    "Schedule Request"
+                ],
+                "summary": "Create a new appointment",
+                "requestBody": {
+                    "description": "Appointment Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/appointmentRequestPostBody"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/get_appointments": {
+            "post": {
+                "tags": [
+                    "Schedule Request"
+                ],
+                "summary": "Get appointments of patient",
+                "requestBody": {
+                    "description": "Appointments Request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/appointmentsRequest"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -160,6 +226,10 @@
             "patientRequestPostBody": {
                 "type": "object",
                 "properties": {
+                    "policyNumber": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
                     "name": {
                         "type": "string",
                         "format": "string"
@@ -173,10 +243,10 @@
                         "format": "string"
                     },
                     "birthDate": {
-                        "type": "date",
+                        "type": "string",
                         "format": "YYYY-MM-DD"
                     },
-                    "phone_number": {
+                    "phoneNumber": {
                         "type": "string",
                         "format": "+xxxxxxxxxxx"
                     },
@@ -247,15 +317,6 @@
                     }
                 }
             },
-            "scheduleRequest": {
-                "type": "object",
-                "properties": {
-                    "ID": {
-                        "type": "number",
-                        "format": "number"
-                    }
-                }
-            },
             "slotRequestPostBody": {
                 "type": "object",
                 "properties": {
@@ -302,6 +363,28 @@
                     "EndDate": {
                         "type": "string",
                         "format": "YYYY-MM-DDTHH:MM:SSZ"
+                    }
+                }
+            },
+            "appointmentRequestPostBody": {
+                "type": "object",
+                "properties": {
+                    "slotID": {
+                        "type": "integer",
+                        "format": "integer"
+                    },
+                    "patientID": {
+                        "type": "integer",
+                        "format": "integer"
+                    }
+                }
+            },
+            "appointmentsRequest": {
+                "type": "object",
+                "properties": {
+                    "patientID": {
+                        "type": "integer",
+                        "format": "integer"
                     }
                 }
             }
