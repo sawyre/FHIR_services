@@ -7,8 +7,11 @@ from .sql_query_function import _get_resource_by_id, _get_resources_by_dict
 
 REQUEST_API = Blueprint('patient_api', __name__)
  # TODO: Вынести в глобальные и заменить на нужные
-CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
-SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
+CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
+SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
+
+CREATE_RESOURCE_SERVER = "http://56d053b5d36c.ngrok.io/db_manager/post_resource/"
+SEARCH_RESOURCE_SERVER = "http://56d053b5d36c.ngrok.io/db_manager/db_request/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
@@ -30,7 +33,7 @@ def create_patient():
     
     patient_dict = {}
     patient_dict["resourceType"] = "Patient"
-    patient_dict["identifier"] = [{"value": data["policyNumber"]}]
+    patient_dict["identifier"] = [{"value": str(data["policyNumber"])}]
 
     # Имена могут меняться или фамилии (при женитьбе), поэтому список
     names_list_dict = [{}]
@@ -55,10 +58,11 @@ def create_patient():
     address_list_dict[0]['city'] = data['city']
     address_list_dict[0]['state'] = data['state']
     patient_dict['address'] = address_list_dict
-
+    print(patient_dict)
+    print(CREATE_RESOURCE_SERVER)
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=patient_dict)
-    print(ans.json())
-    return patient_dict, 201
+    print(ans)
+    return ans.json(), 201
 
 @REQUEST_API.route('/patient/<string:_id>', methods=['GET'])
 def get_patient_by_id(_id):
@@ -67,7 +71,7 @@ def get_patient_by_id(_id):
     """
     ans = _get_resource_by_id('patient', _id)
     
-    return ans.json(), 201
+    return ans, 201
 
 @REQUEST_API.route('/get_patient', methods=['POST'])
 def get_patient():

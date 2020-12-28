@@ -445,8 +445,8 @@
                 "type": "object",
                 "properties": {
                     "slotID": {
-                        "type": "integer",
-                        "format": "integer"
+                        "type": "string",
+                        "format": "string"
                     },
                     "patientID": {
                         "type": "string",
