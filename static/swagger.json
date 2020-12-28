@@ -81,6 +81,39 @@
                 }
             }
         },
+        "/get_patient": {
+            "post": {
+                "tags": [
+                    "Patient Request"
+                ],
+                "summary": "Get patient",
+                "requestBody": {
+                    "description": "Patient Request Post Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/patientGetRequest"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
         "/create_schedule": {
             "post": {
                 "tags": [
@@ -212,6 +245,39 @@
                     }
                 }
             }
+        },
+        "/get_slots": {
+            "post": {
+                "tags": [
+                    "Schedule Request"
+                ],
+                "summary": "Get slots of practitioner",
+                "requestBody": {
+                    "description": "Slots Request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/slotsRequest"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/schemas/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -264,6 +330,15 @@
                     }
                 }
             },
+            "patientGetRequest": {
+                "type": "object",
+                "properties": {
+                    "policyNumber": {
+                        "type": "integer",
+                        "format": "integer"
+                    }
+                }
+            },
             "scheduleRequestPostBody": {
                 "type": "object",
                 "properties": {
@@ -296,16 +371,16 @@
                         "format": "string"
                     },
                     "PractitionerID": {
-                        "type": "integer",
-                        "format": "integer"
+                        "type": "string",
+                        "format": "string"
                     },
                     "Location": {
                         "type": "string",
                         "format": "string"
                     },
                     "LocationID": {
-                        "type": "integer",
-                        "format": "integer"
+                        "type": "string",
+                        "format": "string"
                     },
                     "StartDate": {
                         "type": "string",
@@ -374,8 +449,8 @@
                         "format": "integer"
                     },
                     "patientID": {
-                        "type": "integer",
-                        "format": "integer"
+                        "type": "string",
+                        "format": "string"
                     }
                 }
             },
@@ -383,8 +458,25 @@
                 "type": "object",
                 "properties": {
                     "patientID": {
-                        "type": "integer",
-                        "format": "integer"
+                        "type": "string",
+                        "format": "string"
+                    }
+                }
+            },
+            "slotsRequest": {
+                "type": "object",
+                "properties": {
+                    "practitionerID": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "startDate": {
+                        "type": "string",
+                        "format": "YYYY-MM-DDTHH:MM:SSZ"
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "YYYY-MM-DDTHH:MM:SSZ"
                     }
                 }
             }

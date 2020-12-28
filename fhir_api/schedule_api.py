@@ -186,7 +186,7 @@ def create_appointment():
 @REQUEST_API.route('/get_appointments', methods=['POST'])
 def get_appointments():
     """
-    Create a appointment request record
+    Appointments request
     @return: 201: a new_uuid as a flask/response object \
     with application/json mimetype.
     @raise 400: misunderstood request
@@ -196,9 +196,31 @@ def get_appointments():
         abort(400)
     data = request.get_json()
 
-    search_dict = {"participant": [{"actor": {"reference": "Patient/7"}}]}
+    search_dict = {"participant": [{"actor": {"reference": "Patient/" + str(data['patientID'])}}]}
     appointments_dict = _get_resources_by_dict("appointment", search_dict)
 
     #ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
     print(appointments_dict)
     return appointments_dict, 201
+
+@REQUEST_API.route('/get_slots', methods=['POST'])
+def get_slots():
+    """
+    Slots request
+    @return: 201: a new_uuid as a flask/response object \
+    with application/json mimetype.
+    @raise 400: misunderstood request
+    """
+    print('here')
+    if not request.get_json():
+        abort(400)
+    data = request.get_json()
+
+    search_dict = {"actor": [{"reference": "Practitioner/" + str(data['practitionerID'])}]}    
+    schedule_dict = _get_resources_by_dict("schedule", search_dict)
+    #TODO: добавить редактирование результатов по времени
+    for key in schedule_dict.keys():
+        search_dict = {"schedule ": [{"reference": "Schedule/" + str(key)}]}
+        slots_dict = _get_resources_by_dict("slot", search_dict)
+        #ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
+        return slots_dict, 201

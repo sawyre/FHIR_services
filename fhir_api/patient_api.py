@@ -68,3 +68,16 @@ def get_patient_by_id(_id):
     ans = _get_resource_by_id('patient', _id)
     
     return ans.json(), 201
+
+@REQUEST_API.route('/get_patient', methods=['POST'])
+def get_patient():
+    """
+    Get a patient request record
+    """
+    if not request.get_json():
+        abort(400)
+    data = request.get_json(force=True)
+    search_dict = {"identifier": [{"value": str(data["policyNumber"])}]}    
+    patient_dict = _get_resources_by_dict('patient', search_dict)
+    
+    return patient_dict, 201

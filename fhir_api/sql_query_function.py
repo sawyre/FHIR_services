@@ -1,7 +1,7 @@
 import requests
 
 
-RECOURCE_ID_NUM_DB = 1
+RECOURCE_ID_NUM_DB = 0
 RECOURCE_COLUMN_NUM_DB = 5
 SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
 
@@ -10,7 +10,7 @@ def _get_resource_by_id(resource_type, id):
     resource_type - маленькими буквами
     id - число
     """
-    sql_search_query = 'select * from {} where txid={}'.format(resource_type, id)
+    sql_search_query = 'select * from {} where id={}'.format(resource_type, id)
     query_dict = {'query': sql_search_query}
     print(query_dict)
     ans = requests.post(SEARCH_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=query_dict)
