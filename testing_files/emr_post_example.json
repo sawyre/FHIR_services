@@ -3,23 +3,19 @@
     "ObservationStatus": "final",
     "ObservationText": "Glucose [Moles/volume] in blood",
     "PatientID": 1111,
-    "PatientName": "John Smith", // на юае имя есть? если нет, не надо
+    "EffectiveDateTime" : "2020-12-28",
+    "PatientName": "John Smith",
     "QuantityValue": 6.3,
     "QuantityUnit": "mmol/l",
     "Interpretation": "normal"
   },
   {
-    "AllergyStatus": "active",
-    "AllergyVerification": "confirmed",
-    "Type": "allergy",
-    "AllergyCategories": [
-      "food",
-      "environment",
-      "biologic"
-    ],
-    "Criticality": "high",
-    "OnsetDateTime": "1997",
-    "LastOccurrence": "2020"
+    "VisitReason": "повторный прием по результатам анализов",
+    "ObservationID": 123,
+    "PatientID": 1111,
+    "PractitionerID": 1222,
+    "EffectiveDateTime" : "2020-12-28",
+    "Conclusion" : "заключение осмотра"
   },
   {
     "ObservationID": 123,
@@ -27,6 +23,7 @@
     "MedicationConcept": "some antihistamine pill name",
     "dateAsserted": "2020-04",
     "PractitionerID": 1222,
+    "PatientID": 1111,
     "Dosage": "3 times a day",
     "AdditionalInstruction": ["with meals"]
   }

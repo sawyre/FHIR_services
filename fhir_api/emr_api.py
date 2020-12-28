@@ -2,7 +2,6 @@ import uuid
 from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
-from .sql_query_converter import sql_query_by_dict, sql_query_by_id
 
 REQUEST_API = Blueprint('emr_api', __name__)
 # TODO: Вынести в глобальные и заменить на нужные
@@ -72,14 +71,13 @@ def construct_medical_statement(data, obs_id):
     return statement_dict
 
 
-@REQUEST_API.route(EMR_BASE, methods=['POST'])
+@REQUEST_API.route("/create_emr", methods=['POST'])
 def create_emr():
     """
-    Create a emr for a patient request
+    Create an emr for a patient request
     @return: 201:
     @raise 400: misunderstood request
     """
-    print('here')
     if not request.get_json() or len(request.get_json()) != 3:
         abort(400)
     data = request.get_json()

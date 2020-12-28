@@ -5,7 +5,7 @@
       "text": "Glucose [Moles/volume] in blood"
     },
     "subject": {
-      "reference": "Patient/123123",
+      "reference": "Patient/b3faa5b2-1232-4f05-8a49-ff9862ef67e4",
       "display": "My super allergic dumb self"
     },
     "valueQuantity": {
