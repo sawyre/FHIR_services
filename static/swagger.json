@@ -428,8 +428,8 @@
                         "format": "string"
                     },
                     "ScheduleID": {
-                        "type": "integer",
-                        "format": "integer"
+                        "type": "string",
+                        "format": "string"
                     },
                     "StartDate": {
                         "type": "string",

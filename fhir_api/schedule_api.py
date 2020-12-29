@@ -3,12 +3,17 @@ from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
 from .sql_query_function import _get_resource_by_id, _get_resources_by_dict
+import json
 
 
 REQUEST_API = Blueprint('schedule_api', __name__)
  # TODO: Вынести в глобальные и заменить на нужные
-CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
-SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/his_requests/"
+CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
+SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
+
+CREATE_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/post_resource/"
+SEARCH_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/db_request/"
+
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
@@ -33,7 +38,7 @@ def create_schedule():
     serviceCat = [{
         "coding": [
             {
-                "code": data["serviceCategoryCode"],
+                "code": str(data["serviceCategoryCode"]),
                 "display": data["serviceCategory"]
             }
         ]
@@ -43,7 +48,7 @@ def create_schedule():
     serviceType = [{
         "coding": [
             {
-                "code": data["serviceTypeCode"],
+                "code": str(data["serviceTypeCode"]),
                 "display": data["serviceType"]
             }
         ]
@@ -53,7 +58,7 @@ def create_schedule():
     specialty = [{
         "coding": [
             {
-                "code": data["specialtyCode"],
+                "code": str(data["specialtyCode"]),
                 "display": data["specialty"]
             }
         ]
@@ -78,7 +83,7 @@ def create_schedule():
     }
     
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=schedule_dict)
-    print(ans.json())
+    print(json.loads(ans.json()["success"][0][0]))
     return schedule_dict, 201
 
 @REQUEST_API.route('/create_slot', methods=['POST'])
@@ -100,7 +105,7 @@ def create_slot():
     serviceCat = [{
         "coding": [
             {
-                "code": data["serviceCategoryCode"],
+                "code": str(data["serviceCategoryCode"]),
                 "display": data["serviceCategory"]
             }
         ]
@@ -110,7 +115,7 @@ def create_slot():
     serviceType = [{
         "coding": [
             {
-                "code": data["serviceTypeCode"],
+                "code": str(data["serviceTypeCode"]),
                 "display": data["serviceType"]
             }
         ]
@@ -120,7 +125,7 @@ def create_slot():
     specialty = [{
         "coding": [
             {
-                "code": data["specialtyCode"],
+                "code": str(data["specialtyCode"]),
                 "display": data["specialty"]
             }
         ]
@@ -130,7 +135,7 @@ def create_slot():
     appointmentType = [{
         "coding": [
             {
-                "code": data["appointmentTypeCode"],
+                "code": str(data["appointmentTypeCode"]),
                 "display": data["appointmentType"]
             }
         ]
@@ -143,7 +148,7 @@ def create_slot():
     slot_dict["end"] = data["EndDate"]
     
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
-    print(ans.json())
+    print(json.loads(ans.json()["success"][0][0]))
     return slot_dict, 201
 
 @REQUEST_API.route('/create_appointment', methods=['POST'])
@@ -220,7 +225,7 @@ def get_slots():
     schedule_dict = _get_resources_by_dict("schedule", search_dict)
     #TODO: добавить редактирование результатов по времени
     for key in schedule_dict.keys():
-        search_dict = {"schedule ": [{"reference": "Schedule/" + str(key)}]}
+        search_dict = {"schedule": {"reference": "Schedule/" + str(key)}}
         slots_dict = _get_resources_by_dict("slot", search_dict)
         #ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
         return slots_dict, 201

@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
 from .sql_query_function import _get_resource_by_id, _get_resources_by_dict
+import json
 
 
 REQUEST_API = Blueprint('patient_api', __name__)
@@ -10,8 +11,8 @@ REQUEST_API = Blueprint('patient_api', __name__)
 CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
 SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
 
-CREATE_RESOURCE_SERVER = "http://56d053b5d36c.ngrok.io/db_manager/post_resource/"
-SEARCH_RESOURCE_SERVER = "http://56d053b5d36c.ngrok.io/db_manager/db_request/"
+CREATE_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/post_resource/"
+SEARCH_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/db_request/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
@@ -61,8 +62,8 @@ def create_patient():
     print(patient_dict)
     print(CREATE_RESOURCE_SERVER)
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=patient_dict)
-    print(ans)
-    return ans.json(), 201
+    print(json.loads(ans.json()["success"][0][0]))
+    return patient_dict, 201
 
 @REQUEST_API.route('/patient/<string:_id>', methods=['GET'])
 def get_patient_by_id(_id):

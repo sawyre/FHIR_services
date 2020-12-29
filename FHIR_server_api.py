@@ -8,7 +8,7 @@ from fhir_api import schedule_api
 from flask_ngrok import run_with_ngrok
 
 
-RUN_WITH_NGROK = True
+RUN_WITH_NGROK = False
 APP = Flask(__name__)
 
 ### swagger specific ###
