@@ -7,5 +7,14 @@
     "QuantityValue": 6.3,
     "QuantityUnit": "mmol/l",
     "Interpretation": "normal"
+  },
+  {
+    "ObservationStatus": "final",
+    "ObservationText": "Hemoglobin [Mass/volume] in Blood",
+    "PatientID": 1111,
+    "EffectiveDateTime" : "2020-12-28",
+    "QuantityValue": 7.2,
+    "QuantityUnit": "g/dl",
+    "Interpretation": "low"
   }
 ]

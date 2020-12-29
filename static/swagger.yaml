@@ -240,9 +240,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/observationBody'
+              "$ref": "#/components/schemas/patientGetRequest"
       produces:
         - application/json
       responses:
@@ -263,9 +261,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/diagnosticBody'
+              "$ref": "#/components/schemas/patientGetRequest"
       produces:
         - application/json
       responses:
@@ -286,9 +282,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/medicationBody'
+              "$ref": "#/components/schemas/patientGetRequest"
       produces:
         - application/json
       responses:
