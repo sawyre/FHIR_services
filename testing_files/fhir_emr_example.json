@@ -5,8 +5,7 @@
       "text": "Glucose [Moles/volume] in blood"
     },
     "subject": {
-      "reference": "Patient/b3faa5b2-1232-4f05-8a49-ff9862ef67e4",
-      "display": "My super allergic dumb self"
+      "reference": "Patient/123123"
     },
     "valueQuantity": {
       "value": 6.3,
@@ -19,26 +18,21 @@
     ]
   },
   {
-    "resourceType": "AllergyIntolerance",
-    "clinicalStatus": {
-      "text": "active"
+    "resourceType" : "DiagnosticReport",
+    "code": {
+        "text": "повторный прием по результатам анализов"
     },
-    "verificationStatus": {
-      "text": "confirmed"
+    "subject": {
+        "reference": "Patient/123123"
     },
-    "type": "allergy",
-    "category": [
-      "food",
-      "environment",
-      "biologic"
-    ],
-    "criticality": "high",
-    "onsetDateTime": "1997",
-    "lastOccurrence": "2020",
-    "patient": {
-      "reference": "Patient/123123",
-      "display": "My super allergic dumb self"
-    }
+    "result": [{
+        "reference": "Observation/111111"
+    }],
+    "effectiveDateTime" : "2020-12-28",
+    "performer" : [{
+        "reference": "Practitioner/1222"
+     }],
+    "conclusion" : "заключение осмотра"
   },
   {
     "resourceType": "MedicationStatement",
@@ -52,8 +46,7 @@
       "text": "some antihistamine pill name"
     },
     "subject": {
-      "reference": "Patient/123123",
-      "display": "My super allergic dumb self"
+      "reference": "Patient/123123"
     },
     "dateAsserted": "2020-04",
     "informationSource": {

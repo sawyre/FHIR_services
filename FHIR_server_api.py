@@ -3,17 +3,17 @@ import os
 from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
-from fhir_api import patient_api
+from fhir_api import patient_api, emr_api
 from fhir_api import schedule_api
 from flask_ngrok import run_with_ngrok
 
 
-RUN_WITH_NGROK = True
+RUN_WITH_NGROK = False
 APP = Flask(__name__)
 
 ### swagger specific ###
 SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.json'
+API_URL = '/static/swagger.yaml'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
@@ -26,6 +26,7 @@ APP.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 APP.register_blueprint(patient_api.get_blueprint())
 APP.register_blueprint(schedule_api.get_blueprint())
+APP.register_blueprint(emr_api.get_blueprint())
 
 if RUN_WITH_NGROK:
     run_with_ngrok(APP)

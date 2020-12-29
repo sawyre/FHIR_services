@@ -1,0 +1,12 @@
+[
+  {
+    "ObservationID": [123],
+    "MedicationStatus": "active",
+    "MedicationConcept": "some antihistamine pill name",
+    "dateAsserted": "2020-04",
+    "PractitionerID": 1222,
+    "PatientID": 1111,
+    "Dosage": "3 times a day",
+    "AdditionalInstruction": ["with meals"]
+  }
+]

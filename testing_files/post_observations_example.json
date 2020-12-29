@@ -1,0 +1,11 @@
+[
+  {
+    "ObservationStatus": "final",
+    "ObservationText": "Glucose [Moles/volume] in blood",
+    "PatientID": 1111,
+    "EffectiveDateTime" : "2020-12-28",
+    "QuantityValue": 6.3,
+    "QuantityUnit": "mmol/l",
+    "Interpretation": "normal"
+  }
+]
