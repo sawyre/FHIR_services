@@ -6,7 +6,7 @@ RECOURCE_ID_NUM_DB = 0
 RECOURCE_COLUMN_NUM_DB = 5
 SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
 
-SEARCH_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/db_request/"
+SEARCH_RESOURCE_SERVER = "http://38dafd44cb03.ngrok.io/db_manager/db_request/"
 
 def _get_resource_by_id(resource_type, id):
     """
@@ -38,5 +38,5 @@ def _get_resources_by_dict(resource_type, fhir_resource_dict):
         print(ans.json()['success'])
         print('первая запись', ans.json()['success'][0])
         print('id', ans.json()['success'][0][RECOURCE_COLUMN_NUM_DB])
-        resources_dict = dict(zip([item[RECOURCE_ID_NUM_DB] for item in ans.json()['success']], [item[RECOURCE_COLUMN_NUM_DB] for item in ans.json()['success']]))
+        resources_dict = dict(zip([item[RECOURCE_ID_NUM_DB] for item in ans.json()['success']], [json.loads(item[RECOURCE_COLUMN_NUM_DB]) for item in ans.json()['success']]))
     return resources_dict
