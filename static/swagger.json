@@ -316,6 +316,10 @@
                         "type": "string",
                         "format": "+xxxxxxxxxxx"
                     },
+                    "email": {
+                        "type": "string",
+                        "format": "x@x.x"
+                    },
                     "address": {
                         "type": "string",
                         "format": "string"
@@ -448,7 +452,7 @@
                         "type": "string",
                         "format": "string"
                     },
-                    "patientID": {
+                    "policyNumber": {
                         "type": "string",
                         "format": "string"
                     }
@@ -457,7 +461,7 @@
             "appointmentsRequest": {
                 "type": "object",
                 "properties": {
-                    "patientID": {
+                    "policyNumber": {
                         "type": "string",
                         "format": "string"
                     }
