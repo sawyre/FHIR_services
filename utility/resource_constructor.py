@@ -3,7 +3,7 @@ def construct_observation_resource(data, patient_id):
         "text": data["ObservationText"]
     }, "subject": {
         "reference": "Patient/" + str(patient_id)
-    }, "valueQuantity": {
+    }, "effectiveDateTime": (data["EffectiveDateTime"],), "valueQuantity": {
         "value": data["QuantityValue"],
         "unit": data["QuantityUnit"]
     }, "interpretation": [{
