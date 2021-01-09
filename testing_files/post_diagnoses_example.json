@@ -1,8 +1,8 @@
 [
   {
     "VisitReason": "повторный прием по результатам анализов",
-    "ObservationID": [123],
-    "PatientID": 1111,
+    "ObservationID": ["158df676-2bf9-4095-96d2-9b6e7cd5348f", "526de23a-11d4-4139-84c4-35b43c0b4c80"],
+    "policyNumber": 555,
     "PractitionerID": 1222,
     "EffectiveDateTime" : "2020-12-28",
     "Conclusion" : "заключение осмотра"

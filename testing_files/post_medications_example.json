@@ -1,11 +1,11 @@
 [
   {
-    "ObservationID": [123],
+    "ObservationID": ["158df676-2bf9-4095-96d2-9b6e7cd5348f", "526de23a-11d4-4139-84c4-35b43c0b4c80"],
     "MedicationStatus": "active",
     "MedicationConcept": "some antihistamine pill name",
     "dateAsserted": "2020-04",
     "PractitionerID": 1222,
-    "PatientID": 1111,
+    "policyNumber": 555,
     "Dosage": "3 times a day",
     "AdditionalInstruction": ["with meals"]
   }

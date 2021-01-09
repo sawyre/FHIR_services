@@ -1,0 +1,12 @@
+{
+  "policyNumber": 555,
+  "name": "James",
+  "family": "Bond",
+  "gender": "male",
+  "birthDate": "11.11.1920",
+  "phoneNumber": "+44007007007",
+  "email": "bond@mail.ru",
+  "address": "MI-6",
+  "city": "London",
+  "state": "GB"
+}
