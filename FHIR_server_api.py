@@ -9,7 +9,7 @@ from fhir_api import emr_api
 from fhir_api import patient_api
 from fhir_api import schedule_api
 
-RUN_WITH_NGROK = False
+RUN_WITH_NGROK = True
 APP = Flask(__name__)
 
 ### swagger specific ###
