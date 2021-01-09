@@ -6,7 +6,7 @@ RECOURCE_ID_NUM_DB = 0
 RECOURCE_COLUMN_NUM_DB = 5
 SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
 
-SEARCH_RESOURCE_SERVER = "http://78e99cb4c7bf.ngrok.io/db_manager/db_request/"
+#SEARCH_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/db_request/"
 
 def _get_resource_by_id(resource_type, id):
     """

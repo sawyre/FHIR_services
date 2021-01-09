@@ -12,8 +12,8 @@ REQUEST_API = Blueprint('schedule_api', __name__)
 CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
 SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
 
-CREATE_RESOURCE_SERVER = "http://78e99cb4c7bf.ngrok.io/db_manager/post_resource/"
-SEARCH_RESOURCE_SERVER = "http://78e99cb4c7bf.ngrok.io/db_manager/db_request/"
+#CREATE_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/post_resource/"
+#SEARCH_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/db_request/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""

@@ -5,10 +5,11 @@ from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from fhir_api import patient_api
 from fhir_api import schedule_api
+from fhir_api import emr_api
 from flask_ngrok import run_with_ngrok
 
 
-RUN_WITH_NGROK = False
+RUN_WITH_NGROK = True
 APP = Flask(__name__)
 
 ### swagger specific ###
@@ -26,6 +27,7 @@ APP.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 APP.register_blueprint(patient_api.get_blueprint())
 APP.register_blueprint(schedule_api.get_blueprint())
+APP.register_blueprint(emr_api.get_blueprint())
 
 if RUN_WITH_NGROK:
     run_with_ngrok(APP)
