@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from fhir_api import patient_api, emr_api
 from fhir_api import schedule_api
+from fhir_api import emr_api
 from flask_ngrok import run_with_ngrok
 
 

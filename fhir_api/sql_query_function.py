@@ -1,4 +1,5 @@
 import requests
+import json
 
 from utility.constants import SEARCH_RESOURCE_SERVER
 
@@ -11,11 +12,11 @@ def _get_resource_by_id(resource_type, id):
     resource_type - маленькими буквами
     id - число
     """
-    sql_search_query = 'select * from {} where id={};'.format(resource_type, id)
+    sql_search_query = 'select * from {} where id=\'{}\';'.format(resource_type, id)
     query_dict = {'query': sql_search_query}
     print(query_dict)
     ans = requests.post(SEARCH_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=query_dict)
-    return ans.json()[0][RECOURCE_COLUMN_NUM_DB]
+    return json.loads(ans.json()['success'][0][RECOURCE_COLUMN_NUM_DB])
 
 def _get_resources_by_dict(resource_type, fhir_resource_dict):
     """
@@ -31,5 +32,5 @@ def _get_resources_by_dict(resource_type, fhir_resource_dict):
     if type(data[0]) == str:
         resources_dict = {data[RECOURCE_ID_NUM_DB]: data[RECOURCE_COLUMN_NUM_DB]}
     else:
-        resources_dict = dict(zip([item[RECOURCE_ID_NUM_DB] for item in ans.json()['success']], [item[RECOURCE_COLUMN_NUM_DB] for item in ans.json()['success']]))
+        resources_dict = dict(zip([item[RECOURCE_ID_NUM_DB] for item in ans.json()['success']], [json.loads(item[RECOURCE_COLUMN_NUM_DB]) for item in ans.json()['success']]))
     return resources_dict
