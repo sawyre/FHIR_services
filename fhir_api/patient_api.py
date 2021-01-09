@@ -2,17 +2,13 @@ import uuid
 from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
+
+from utility.constants import CREATE_RESOURCE_SERVER
 from .sql_query_function import _get_resource_by_id, _get_resources_by_dict
 import json
 
-
 REQUEST_API = Blueprint('patient_api', __name__)
- # TODO: Вынести в глобальные и заменить на нужные
-CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
-SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
 
-#CREATE_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/post_resource/"
-#SEARCH_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/db_request/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
@@ -64,19 +60,22 @@ def create_patient():
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=patient_dict)
     return json.loads(ans.json()["success"][0][0]), 201
 
+
 @REQUEST_API.route('/patient/<string:_id>', methods=['GET'])
 def get_patient_by_id(_id):
     """
     Get a patient request record
     """
     ans = _get_resource_by_id('patient', _id)
-    
+
     return ans, 201
+
 
 def _get_patient_by_policyNumber(policyNumber):
     search_dict = {"identifier": [{"value": str(policyNumber)}]}
     patient_dict = _get_resources_by_dict('patient', search_dict)
     return patient_dict
+
 
 @REQUEST_API.route('/get_patient', methods=['POST'])
 def get_patient():
@@ -87,5 +86,5 @@ def get_patient():
         abort(400)
     data = request.get_json(force=True)
     patient_dict = _get_patient_by_policyNumber(data["policyNumber"])
-    
+
     return patient_dict, 201

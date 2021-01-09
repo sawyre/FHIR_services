@@ -88,7 +88,7 @@ def get_observations():
     data = request.get_json(force=True)
     search_dict = {"subject": {"reference": "Patient/" + str(data["policyNumber"])}}
     observations_dict = _get_resources_by_dict('observation', search_dict)
-    observations_dict = {k: json.loads(v) for k, v in observations_dict.items()}
+    # observations_dict = {k: json.loads(v) for k, v in observations_dict.items()}
     return observations_dict, 200
 
 
@@ -104,7 +104,7 @@ def get_diagnoses():
     data = request.get_json(force=True)
     search_dict = {"subject": {"reference": "Patient/" + str(data["policyNumber"])}}
     diagnoses_dict = _get_resources_by_dict('diagnosticreport', search_dict)
-    diagnoses_dict = {k: json.loads(v) for k, v in diagnoses_dict.items()}
+    # diagnoses_dict = {k: json.loads(v) for k, v in diagnoses_dict.items()}
     return diagnoses_dict, 200
 
 
@@ -120,5 +120,5 @@ def get_medications():
     data = request.get_json(force=True)
     search_dict = {"subject": {"reference": "Patient/" + str(data["policyNumber"])}}
     medications_dict = _get_resources_by_dict('medicationstatement', search_dict)
-    medications_dict = {k: json.loads(v) for k, v in medications_dict.items()}
+    # medications_dict = {k: json.loads(v) for k, v in medications_dict.items()}
     return medications_dict, 200

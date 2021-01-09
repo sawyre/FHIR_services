@@ -2,22 +2,19 @@ import uuid
 from datetime import datetime, timedelta
 from flask import jsonify, abort, request, Blueprint
 import requests
+
+from utility.constants import CREATE_RESOURCE_SERVER
 from .sql_query_function import _get_resource_by_id, _get_resources_by_dict
 from .patient_api import _get_patient_by_policyNumber
 import json
 
-
 REQUEST_API = Blueprint('schedule_api', __name__)
- # TODO: Вынести в глобальные и заменить на нужные
-CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
-SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"
 
-#CREATE_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/post_resource/"
-#SEARCH_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/db_request/"
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
     return REQUEST_API
+
 
 @REQUEST_API.route('/create_schedule', methods=['POST'])
 def create_schedule():
@@ -81,10 +78,11 @@ def create_schedule():
         "start": data["StartDate"],
         "end": data["EndDate"]
     }
-    
+
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=schedule_dict)
     print(json.loads(ans.json()["success"][0][0]))
     return json.loads(ans.json()["success"][0][0]), 201
+
 
 @REQUEST_API.route('/create_slot', methods=['POST'])
 def create_slot():
@@ -146,10 +144,11 @@ def create_slot():
 
     slot_dict["start"] = data["StartDate"]
     slot_dict["end"] = data["EndDate"]
-    
+
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
     print(json.loads(ans.json()["success"][0][0]))
     return json.loads(ans.json()["success"][0][0]), 201
+
 
 @REQUEST_API.route('/create_appointment', methods=['POST'])
 def create_appointment():
@@ -185,13 +184,13 @@ def create_appointment():
     schedule_dict = _get_resource_by_id('schedule', schedule_id)
 
     patient_dict = _get_patient_by_policyNumber(data['policyNumber'])
-    appointment_dict['participant'] = [{"actor": {"reference": "Patient/" +  str(list(patient_dict.keys())[0])}}, 
+    appointment_dict['participant'] = [{"actor": {"reference": "Patient/" + str(list(patient_dict.keys())[0])}},
                                        {"actor": {"reference": schedule_dict['actor'][0]['reference']}}]
-
 
     ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=appointment_dict)
     print(ans.json())
     return json.loads(ans.json()["success"][0][0]), 201
+
 
 @REQUEST_API.route('/get_appointments', methods=['POST'])
 def get_appointments():
@@ -210,9 +209,10 @@ def get_appointments():
     search_dict = {"participant": [{"actor": {"reference": "Patient/" + str(list(patient_dict.keys())[0])}}]}
     appointments_dict = _get_resources_by_dict("appointment", search_dict)
 
-    #ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
+    # ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
     print(appointments_dict)
     return appointments_dict, 201
+
 
 @REQUEST_API.route('/get_slots', methods=['POST'])
 def get_slots():
@@ -227,11 +227,11 @@ def get_slots():
         abort(400)
     data = request.get_json()
 
-    search_dict = {"actor": [{"reference": "Practitioner/" + str(data['practitionerID'])}]}    
+    search_dict = {"actor": [{"reference": "Practitioner/" + str(data['practitionerID'])}]}
     schedule_dict = _get_resources_by_dict("schedule", search_dict)
-    #TODO: добавить редактирование результатов по времени
+    # TODO: добавить редактирование результатов по времени
     for key in schedule_dict.keys():
         search_dict = {"schedule": {"reference": "Schedule/" + str(key)}}
         slots_dict = _get_resources_by_dict("slot", search_dict)
-        #ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
+        # ans = requests.post(CREATE_RESOURCE_SERVER, headers={'Content-type': 'application/json'}, json=slot_dict)
         return slots_dict, 201

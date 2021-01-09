@@ -34,6 +34,23 @@ paths:
             "$ref": "#/components/schemas/id"
         '400':
           description: Failed. Bad post data.
+  "/patient/{id}":
+    get:
+      tags:
+        - Patient Request
+      summary: Returns patient with given ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Patient Request id
+          schema:
+            "$ref": "#/components/schemas/id"
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/components/schemas/patientRequest"
   "/get_patient":
     post:
       tags:
@@ -319,6 +336,9 @@ components:
         phoneNumber:
           type: string
           format: "+xxxxxxxxxxx"
+        email:
+          type: string
+          format: x@x.x
         address:
           type: string
           format: string
@@ -401,8 +421,8 @@ components:
           type: string
           format: string
         ScheduleID:
-          type: integer
-          format: integer
+          type: string
+          format: string
         StartDate:
           type: string
           format: YYYY-MM-DDTHH:MM:SSZ
@@ -413,15 +433,15 @@ components:
       type: object
       properties:
         slotID:
-          type: integer
-          format: integer
-        patientID:
+          type: string
+          format: string
+        policyNumber:
           type: string
           format: string
     appointmentsRequest:
       type: object
       properties:
-        patientID:
+        policyNumber:
           type: string
           format: string
     slotsRequest:
@@ -445,7 +465,7 @@ components:
         ObservationText:
           type: string
           format: string
-        PatientID:
+        policyNumber:
           type: string
           format: string
         EffectiveDateTime:
@@ -480,7 +500,7 @@ components:
         MedicationConcept:
           type: string
           format: string
-        dateAsserted:
+        DateAsserted:
           type: string
           format:
             oneOf:
@@ -491,7 +511,7 @@ components:
         PractitionerID:
           type: string
           format: string
-        PatientID:
+        policyNumber:
           type: string
           format: string
         Dosage:
@@ -513,7 +533,7 @@ components:
         PractitionerID:
           type: string
           format: string
-        PatientID:
+        policyNumber:
           type: string
           format: string
         EffectiveDateTime:
@@ -539,7 +559,7 @@ components:
           PractitionerID:
             type: string
             format: string
-          PatientID:
+          policyNumber:
             type: string
             format: string
           EffectiveDateTime:

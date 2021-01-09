@@ -1,3 +1,7 @@
-# TODO: Вынести в глобальные и заменить на нужные
-CREATE_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/post_resource/"
-SEARCH_RESOURCE_SERVER = "http://0cf4d5f1ce90.ngrok.io/db_manager/db_request/"
+# TEST
+CREATE_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/post_resource/"
+SEARCH_RESOURCE_SERVER = "http://b6b33d36f69a.ngrok.io/db_manager/db_request/"
+
+# MAIN
+# CREATE_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/post_resource/"
+# SEARCH_RESOURCE_SERVER = "https://hisgateway.herokuapp.com/panel/get_resource/"

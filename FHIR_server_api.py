@@ -1,13 +1,13 @@
 import argparse
-import os
+
 from flask import Flask, jsonify, make_response
 from flask_cors import CORS
-from flask_swagger_ui import get_swaggerui_blueprint
-from fhir_api import patient_api, emr_api
-from fhir_api import schedule_api
-from fhir_api import emr_api
 from flask_ngrok import run_with_ngrok
+from flask_swagger_ui import get_swaggerui_blueprint
 
+from fhir_api import emr_api
+from fhir_api import patient_api
+from fhir_api import schedule_api
 
 RUN_WITH_NGROK = False
 APP = Flask(__name__)
@@ -31,6 +31,7 @@ APP.register_blueprint(emr_api.get_blueprint())
 
 if RUN_WITH_NGROK:
     run_with_ngrok(APP)
+
 
 @APP.errorhandler(400)
 def handle_400_error(_error):
