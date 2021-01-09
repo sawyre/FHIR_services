@@ -34,23 +34,6 @@ paths:
             "$ref": "#/components/schemas/id"
         '400':
           description: Failed. Bad post data.
-  "/patient/{id}":
-    get:
-      tags:
-        - Patient Request
-      summary: Returns patient with given ID
-      parameters:
-        - in: path
-          name: id
-          required: true
-          description: Patient Request id
-          schema:
-            "$ref": "#/components/schemas/id"
-      responses:
-        '200':
-          description: OK
-          schema:
-            "$ref": "#/components/schemas/patientRequest"
   "/get_patient":
     post:
       tags:
@@ -335,7 +318,7 @@ components:
           format: YYYY-MM-DD
         phoneNumber:
           type: string
-          format: "+xxxxxxxxxxx"
+          format: "+xxxxxxxxxxxxxx"
         email:
           type: string
           format: x@x.x
